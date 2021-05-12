@@ -46,3 +46,4 @@ spec:
         image: duongvt16/netty-app:test-52
       restartPolicy: OnFailure
 EOF
++ get shell: kubectl exec --stdin --tty (pod name) -- /bin/bash
