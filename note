@@ -1,0 +1,48 @@
+multibranch trigger:
+http://f42c31d923aa.ngrok.io/multibranch-webhook-trigger/invoke?token=mytoken
+
+pipeline trigger:
+http://f42c31d923aa.ngrok.io/github-webhook/
+
+myapp: 
++ java -jar D:\eclipse-workspace\netty-1000client\target\netty-1000client-0.0.1-SNAPSHOT.jar
+
+maven:
++ mvn clean package
+
+jmeter:
+
++ jmeter -n -t D:\apache-jmeter-5.4.1\bin\test.jmx
+
+jenkins:
++ sudo systemctl status jenkins
++ sudo systemctl start jenkins
+
+pipeline:
++ jenkins pipeline ngừng chạy các stage hay step tiếp theo nếu step hiện tại báo lỗi (VD: mvn --version, nhưng mvn chưa dc cài)
++ currentBuild.result trạng thái của pipeline hiện tại, không phái là biến môi trường trên agent, access thông qua block script
+
+jenkins access to docker:
+
++ usermod -aG docker jenkins (them jenkins vao groups docker la gourp owner cua docker.sock)
++ chmod 764 /var/run/docker.sock (thay doi cau hinh truy xuat cho docker.sock, co the bi thay doi sau khi reset may)
++ ls -l /var/run/docker.sock (kiem tra cau hinh truy xuat cho docker.sock, owner (root), group owner (docker))
+
++git token: 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
+
+k8s:
+
+cat <<EOF >./kustomization.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: run-netty
+spec:
+  template:
+    # This is the pod template
+    spec:
+      containers:
+      - name: netty-server
+        image: duongvt16/netty-app:test-52
+      restartPolicy: OnFailure
+EOF
