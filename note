@@ -48,4 +48,4 @@ spec:
 EOF
 + get shell: kubectl exec --stdin --tty (pod name) -- /bin/bash
 + dynamuic yaml: 
-        cat "kustomization.yaml" | sed "s/{{BUILD_ID}}/$BUILD_ID/g" | kubectl apply -f -
+        cat "staging-deploy.yaml" | sed "s/{{BUILD_ID}}/$BUILD_ID/g" | kubectl apply -f -
