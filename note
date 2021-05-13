@@ -49,3 +49,4 @@ EOF
 + get shell: kubectl exec --stdin --tty (pod name) -- /bin/bash
 + dynamuic yaml: 
         cat "staging-deploy.yaml" | sed "s/{{BUILD_ID}}/$BUILD_ID/g" | kubectl apply -f -
++ kubectl delete service/netty deployment.apps/netty 
