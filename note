@@ -52,3 +52,8 @@ EOF
 + kubectl delete service/netty deployment.apps/netty 
 + kubectl rollout status deployment.apps/netty 
 
+jmeter:
++ build job: 'test_job', parameters: [[$class: 'LabelParameterValue', name: 'node', label: 'tester1']]
++ jmeter -n -t D:\apache-jmeter-5.4.1\bin\test.jmx
++ jmeter -j jmeter.save.saveservice.output_format=xml -n -t D:\apache-jmeter-5.4.1\bin\test.jmx  -l .\reports\jenkins.io.report.jtl
+(. ung voi workspace cua jenkins tren window)
