@@ -11,8 +11,11 @@ maven:
 + mvn clean package
 
 jmeter:
-
++ build job: 'test_job', parameters: [[$class: 'LabelParameterValue', name: 'node', label: 'tester1']]
 + jmeter -n -t D:\apache-jmeter-5.4.1\bin\test.jmx
++ jmeter -j jmeter.save.saveservice.output_format=xml -n -t D:\apache-jmeter-5.4.1\bin\test.jmx  -l .\reports\jenkins.io.report.jtl
+(. ung voi workspace cua jenkins tren window)
+
 
 jenkins:
 + sudo systemctl status jenkins
@@ -31,7 +34,7 @@ jenkins access to docker:
 +git token: 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
 
 k8s:
-
++
 cat <<EOF >./kustomization.yaml
 apiVersion: batch/v1
 kind: Job
@@ -43,17 +46,9 @@ spec:
     spec:
       containers:
       - name: netty-server
-        image: duongvt16/netty-app:test-52
+        image: duongvt16/netty-app:test-V7
       restartPolicy: OnFailure
 EOF
-+ get shell: kubectl exec --stdin --tty (pod name) -- /bin/bash
-+ dynamuic yaml: 
-        cat "staging-deploy.yaml" | sed "s/{{BUILD_ID}}/$BUILD_ID/g" | kubectl apply -f -
-+ kubectl delete service/netty deployment.apps/netty 
-+ kubectl rollout status deployment.apps/netty 
-
-jmeter:
-+ build job: 'test_job', parameters: [[$class: 'LabelParameterValue', name: 'node', label: 'tester1']]
-+ jmeter -n -t D:\apache-jmeter-5.4.1\bin\test.jmx
-+ jmeter -j jmeter.save.saveservice.output_format=xml -n -t D:\apache-jmeter-5.4.1\bin\test.jmx  -l .\reports\jenkins.io.report.jtl
-(. ung voi workspace cua jenkins tren window)
++ kubectl apply -f kustomization.yaml
++ get shell: kubectl exec --stdin --tty run-netty-(pod name) -- /bin/bash
+curl 127.0.0.1.:8081
