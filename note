@@ -52,3 +52,4 @@ EOF
 + kubectl apply -f kustomization.yaml
 + get shell: kubectl exec --stdin --tty run-netty-(pod name) -- /bin/bash
 curl 127.0.0.1.:8081
+https://d031e1a70343.ngrok.io 
