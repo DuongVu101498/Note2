@@ -53,3 +53,36 @@ EOF
 + get shell: kubectl exec --stdin --tty run-netty-(pod name) -- /bin/bash
 curl 127.0.0.1.:8081
 https://d031e1a70343.ngrok.io 
+piVersion: v1
+clusters:
+- cluster:
+    insecure-skip-tls-verify: true
+    #certificate-authority: /home/duong/.minikube/ca.crt
+    extensions:
+    - extension:
+        last-update: Thu, 13 May 2021 23:58:59 +07
+        provider: minikube.sigs.k8s.io
+        version: v1.20.0
+      name: cluster_info
+    server: https://192.168.1.13:8443
+  name: minikube
+contexts:
+- context:
+    cluster: minikube
+    extensions:
+    - extension:
+        last-update: Thu, 13 May 2021 23:58:59 +07
+        provider: minikube.sigs.k8s.io
+        version: v1.20.0
+      name: context_info
+    namespace: default
+    user: minikube
+  name: minikube
+current-context: minikube
+kind: Config
+preferences: {}
+users:
+- name: minikube
+  user:
+    client-certificate: /var/lib/jenkins/.minikube/profiles/minikube/client.crt
+    client-key: /var/lib/jenkins/.minikube/profiles/minikube/client.key
